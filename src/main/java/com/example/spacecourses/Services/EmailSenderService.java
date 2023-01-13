@@ -16,10 +16,12 @@ public class EmailSenderService implements IServiceEmail {
     {
         SimpleMailMessage message = new SimpleMailMessage();
 
+
         message.setFrom("mahdi.arfaoui1@esprit.tn");
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);
+
 
         mailSender.send(message);
 

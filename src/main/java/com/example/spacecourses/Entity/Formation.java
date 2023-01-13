@@ -44,7 +44,7 @@ public class Formation {
 
     @ManyToMany
     @JsonIgnore
-    private Set<User> apprenant;
+    private Set<User> apprenant ;
 
     @OneToMany(mappedBy = "formation" ,cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @JsonIgnore
@@ -55,9 +55,18 @@ public class Formation {
     @JsonIgnore
     private Set<DatabaseFile> databaseFiles;
 
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Formation{" +
+                "idFormation=" + idFormation +
+                ", title='" + title + '\'' +
+                ", niveau=" + niveau +
+                ", start=" + start +
+                ", end=" + end +
+                ", nbrHeures=" + nbrHeures +
+                ", domain=" + domain +
+                ", nbrMaxParticipant=" + nbrMaxParticipant +
+                ", frais=" + frais +
+                '}';
+    }
 }

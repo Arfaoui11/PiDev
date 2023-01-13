@@ -22,7 +22,9 @@ public class exportPdf {
     public static ByteArrayInputStream FormationPDFReport(List<Formation> formations) throws IOException {
         Document document=new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         try {
+
             PdfWriter.getInstance(document,out);
             document.open();
             //add text to pdf file

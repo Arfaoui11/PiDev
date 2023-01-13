@@ -17,7 +17,7 @@ public interface IServicesQuiz {
     List<Question> getQuizQuestion();
     List<Question> getQuestions();
     int getResult(QuestionForm qForm);
-    void saveScore(Result result, Integer idUser, Integer idQuiz);
+    Integer saveScore(Result result, Integer idUser, Integer idQuiz);
     User ApprenentwithMaxScoreInFormation(Integer id);
 
     Object ApprenentwithMaxScore(@Param("id") Integer id);
@@ -26,6 +26,8 @@ public interface IServicesQuiz {
     List<Object> getApprenantWithScoreQuiz(@Param("id") Integer id);
 
     List<Result> getTopScore();
+
+    Integer getScore( Integer idU);
 
 
 

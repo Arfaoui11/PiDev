@@ -29,13 +29,14 @@ public class Result {
         super();
     }
 
-    public Result(int id, String username, int totalCorrect, int correctAnswer, int inCorrectAnswer) {
+    public Result(int id, String username, int totalCorrect, int correctAnswer, int inCorrectAnswer ,boolean status) {
         super();
         this.id = id;
         this.username = username;
         this.totalCorrect = totalCorrect;
         this.correctAnswer = correctAnswer;
         this.inCorrectAnswer = inCorrectAnswer;
+        this.status = status;
     }
 
     @ManyToOne

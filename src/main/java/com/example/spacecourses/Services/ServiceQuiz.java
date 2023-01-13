@@ -4,6 +4,7 @@ package com.example.spacecourses.Services;
 import com.example.spacecourses.Entity.*;
 
 import com.example.spacecourses.Repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+@Slf4j
 @Service
 public class ServiceQuiz implements IServicesQuiz {
 
@@ -101,18 +102,28 @@ public class ServiceQuiz implements IServicesQuiz {
         return correct;
     }
 
-    public void saveScore(Result result,Integer idUser,Integer idQuiz ) {
+    public Integer saveScore(Result result, Integer idUser, Integer idQuiz ) {
         Result saveResult = new Result();
-         User user = this.iUserRepo.findById(idUser).orElse(null);
-         Quiz quiz = this.iQuizRepo.findById(idQuiz).orElse(null);
 
-        saveResult.setSUser(user);
-        saveResult.setQuiz(quiz);
-        saveResult.setUsername(result.getUsername());
-        saveResult.setTotalCorrect(result.getTotalCorrect());
-        saveResult.setCorrectAnswer(result.getCorrectAnswer());
-        saveResult.setInCorrectAnswer(result.getInCorrectAnswer());
-        iResultRepo.save(saveResult);
+        User user = this.iUserRepo.findById(idUser).orElse(null);
+        Quiz quiz = this.iQuizRepo.findById(idQuiz).orElse(null);
+        if (iResultRepo.findUserQuiz(idUser,idQuiz) == 0)
+        {
+            saveResult.setSUser(user);
+            saveResult.setQuiz(quiz);
+
+            saveResult.setUsername(result.getUsername());
+            saveResult.setTotalCorrect(result.getTotalCorrect());
+            saveResult.setCorrectAnswer(result.getCorrectAnswer());
+            saveResult.setInCorrectAnswer(result.getInCorrectAnswer());
+            iResultRepo.save(saveResult);
+            return 1;
+
+        }else{
+            log.info("This user is tested with this quiz");
+            return 0;
+        }
+
     }
 
     @Override
@@ -145,6 +156,10 @@ public class ServiceQuiz implements IServicesQuiz {
         return sList;
    }
 
+    @Override
+    public Integer getScore(Integer idU) {
+        return iResultRepo.getScore(idU);
+    }
 
 
 }

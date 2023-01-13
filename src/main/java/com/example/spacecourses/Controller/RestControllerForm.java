@@ -138,6 +138,7 @@ public class RestControllerForm {
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bais));
     }
 
+
     @ApiOperation(value = "Retrieve All Formation")
     @GetMapping("/retrieveFormation")
     @ResponseBody
@@ -204,6 +205,8 @@ public class RestControllerForm {
         return new Response(fileName.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
+
+
 
     @PostMapping("/uploadMultipleFiles/{idF}")
     public List<Response> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,@PathVariable(name = "idF") Integer idFormation) {
@@ -307,6 +310,8 @@ public class RestControllerForm {
         return iServiceFormation.getNbrApprenantByFormation();
     }
 
+
+
     @ApiOperation(value = "Récupérer Liste Apprenant By Formation")
     @GetMapping("/ApprenantByFormation/{idF}")
     @ResponseBody
@@ -359,9 +364,9 @@ public class RestControllerForm {
 
     @PostMapping("/SaveScore/{idU}/{idQ}")
     @ApiOperation(value = " Save Score Quiz ")
-    public void saveScore(@RequestBody Result result,@PathVariable(name = "idU") Integer idUser,@PathVariable(name = "idQ") Integer idQuiz)
+    public Integer saveScore(@RequestBody Result result,@PathVariable(name = "idU") Integer idUser,@PathVariable(name = "idQ") Integer idQuiz)
     {
-        this.iServicesQuiz.saveScore(result,idUser,idQuiz);
+       return   this.iServicesQuiz.saveScore(result,idUser,idQuiz);
     }
 
 
@@ -426,6 +431,12 @@ public class RestControllerForm {
      return iServicesQuiz.getTopScore();
     }
 
-
+    @ApiOperation(value = " get Score  ")
+    @GetMapping("/getScore/{id}")
+    @ResponseBody
+    public Integer getScore(@PathVariable("id") Integer idU)
+    {
+        return iServicesQuiz.getScore(idU);
+    }
 
 }

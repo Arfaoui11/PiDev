@@ -64,8 +64,6 @@ public interface IUserRepo extends CrudRepository<User,Integer> {
 
 
 
-  ///  2222  //select f.apprenant from Formation f join f.quizzes q join q.results r where r.totalCorrect=30 and
- //// 1111 //(select Max(r.totalCorrect) from User u join u.formationA f join f.quizzes q join q.results r  where u.role=1)
 
 
 

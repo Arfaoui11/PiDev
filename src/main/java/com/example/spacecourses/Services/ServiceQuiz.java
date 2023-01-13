@@ -10,8 +10,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class ServiceQuiz implements IServicesQuiz {
@@ -151,9 +154,9 @@ public class ServiceQuiz implements IServicesQuiz {
     }
     @Override
      public List<Result> getTopScore() {
-        List<Result> sList = (List<Result>) iResultRepo.findAll(Sort.by(Sort.Direction.DESC, "totalCorrect"));
-
-        return sList;
+        List<Result> sList = (List<Result>) iResultRepo.findAll();
+        return sList.stream()
+                .sorted(Comparator.comparing(Result::getTotalCorrect).reversed()).toList();
    }
 
     @Override

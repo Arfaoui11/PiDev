@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-
 @Slf4j
 @Service
 public class ServiceQuiz implements IServicesQuiz {
@@ -155,13 +153,18 @@ public class ServiceQuiz implements IServicesQuiz {
     @Override
      public List<Result> getTopScore() {
         List<Result> sList = (List<Result>) iResultRepo.findAll();
+       // List<Result> sList = (List<Result>) iResultRepo.findAll(Sort.by(Sort.Direction.DESC, "totalCorrect"));
+
         return sList.stream()
                 .sorted(Comparator.comparing(Result::getTotalCorrect).reversed()).toList();
    }
 
     @Override
-    public Integer getScore(Integer idU) {
-        return iResultRepo.getScore(idU);
+    public Double getScore(Integer idU) {
+        List<Result> sList = (List<Result>) iResultRepo.findAll();
+        return sList.stream().filter(u -> u.getSUser().getId() == idU).mapToDouble(a -> a.getTotalCorrect())
+                .sum();
+        //return iResultRepo.getScore(idU);
     }
 
 

@@ -27,7 +27,7 @@ public interface IServicesQuiz {
 
     List<Result> getTopScore();
 
-    Integer getScore( Integer idU);
+    Double getScore( Integer idU);
 
 
 

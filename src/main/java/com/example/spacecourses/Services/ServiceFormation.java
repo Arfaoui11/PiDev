@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -82,13 +83,16 @@ public class ServiceFormation implements IServiceFormation{
 
     @Override
     public List<User> afficherFormateur() {
-
-       return iUserRepo.getFormateur();
+        List<User> app = (List<User>) iUserRepo.findAll();
+        return app.stream().filter(u -> u.getRole() == Role.FORMATEUR).collect(Collectors.toList());
+      // return iUserRepo.getFormateur();
     }
 
     @Override
     public List<User> afficherApprenant() {
-        return iUserRepo.getApprenant();
+        List<User> app = (List<User>) iUserRepo.findAll();
+        return app.stream().filter(u -> u.getRole() == Role.APPRENANT).collect(Collectors.toList());
+        //return iUserRepo.getApprenant();
     }
 
     @Override
@@ -132,11 +136,11 @@ public class ServiceFormation implements IServiceFormation{
         {
             if (f.getStart().after(dd) && f.getEnd().before(df) )
             {
-        if(this.iFormationRepo.getFormateurRemunerationByDate(f.getFormateur().getId(),dd,df) == max)
-        {
-            u = this.iUserRepo.findById(f.getFormateur().getId()).orElse(null);
-        }
-        }
+                if(this.iFormationRepo.getFormateurRemunerationByDate(f.getFormateur().getId(),dd,df) == max)
+                {
+                    u = this.iUserRepo.findById(f.getFormateur().getId()).orElse(null);
+                }
+            }
         }
         u.setTarifHoraire(u.getTarifHoraire()+10);
         iUserRepo.save(u);

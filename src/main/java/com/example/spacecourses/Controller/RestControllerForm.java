@@ -434,7 +434,7 @@ public class RestControllerForm {
     @ApiOperation(value = " get Score  ")
     @GetMapping("/getScore/{id}")
     @ResponseBody
-    public Integer getScore(@PathVariable("id") Integer idU)
+    public Double getScore(@PathVariable("id") Integer idU)
     {
         return iServicesQuiz.getScore(idU);
     }
